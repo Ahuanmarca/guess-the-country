@@ -1,82 +1,89 @@
-// https://restcountries.com/v3.1/all
-// https://swapi.dev/api/planets/3/
-
-// Default (no args): Returns array with one random country -> one element
-// If arg is a function, returns array.filter(arg) -> likely several elements
-// If arg is a number, retunrs array[arg] -> one element
-async function getCountries(arg) {
-  const response = await fetch("https://restcountries.com/v3.1/all");
-  const data = await response.json();
-  if (typeof arg === "number") return [data[Math.floor(arg)]];
-  if (typeof arg === "function") return data.filter(arg);
-  return [data[Math.floor(Math.random() * data.length)]];
-}
-
-// Returns hints as an Array of Strings. Takes care of pluralizing.
-// ['Continent: North America', 'Capital: Cockburn Town', 'Currency: Dollar', 'Language: English']
-export function getHints({ continents, capital, currencies, languages }) {
-  return [
-    continents
-      ? `Continent${continents.length > 1 ? "s" : ""}: ${continents.join(", ")}`
-      : undefined,
-    capital
-      ? `Capital${capital.length > 1 ? "s" : ""}: ${capital.join(", ")}`
-      : undefined,
-    currencies
-      ? `Currenc${
-          Object.keys(currencies).length > 1 ? "ies" : "y"
-        }: ${Object.values(currencies)
-          .map((c) =>
-            c.name
-              .split(" ")
-              .at(-1)
-              .split("")
-              .map((c, i) => (!i ? c.toUpperCase() : c))
-              .join("")
-          )
-          .join(", ")}`
-      : undefined,
-    languages
-      ? `Language${
-          Object.keys(languages).length > 1 ? "s" : ""
-        }: ${Object.values(languages).join(", ")}`
-      : undefined,
-  ];
-}
+import { getHints } from "./functions/getHints.js"; // -> Array of Strings
+import { getCountries } from "./functions/getCountries.js"; // -> Array with one or more Objects
+import { shuffleArray } from "./functions/shuffleArray.js";
 
 async function runGame() {
   const data = await getCountries();
-  const country = data[0];
 
-  // FLAG IMAGE
+  const gameState = {
+    countries: shuffleArray(data),
+    correct: [],
+    incorrect: [],
+    skipped: [],
+    country: undefined,
+    hints: [],
+    validAnswers: [],
+    hp: 60,
+    correctBonus: 60,
+    hintPenalty: 2,
+    incorrectPenalty: 5,
+    frameRate: 1000,
+    resetCountry() {
+      this.country = this.countries.pop();
+      this.hints.length = 0;
+      this.hints.push(...getHints(this.country));
+      this.validAnswers = Object.values(this.country.name).filter(
+        (n) => typeof n === "string"
+      );
+      flagImg.src = this.country.flags.svg;
+      flagImg.alt = this.country.flags.alt;
+      document.querySelectorAll(".hint").forEach((d) => (d.innerText = ""));
+      console.log(this.validAnswers);
+    },
+  };
+
   const flagImg = document.querySelector(".flag-img");
-  flagImg.src = country.flags.svg;
-  flagImg.alt = country.flags.alt;
+  const hintDivs = document.querySelectorAll(".hint");
+  const userInput = document.querySelector(".guess-input");
+  const scoreValue = document.querySelector(".score-value");
+  const hpValue = document.querySelector(".hp-value");
 
-  // HINT BUTTONS
-  const hints = getHints(country);
-  document.querySelectorAll(".hint-button").forEach((button, index) => {
-    button.addEventListener("click", () => {
-      button.innerText = hints[index];
-    });
-  });
-
-  // GUESS MECHANICS
-  const correctAnswers = Object.values(country.name).filter(
-    (n) => typeof n === "string"
-  );
-  document.querySelector(".guess-form").addEventListener("submit", (e) => {
+  gameState.resetCountry();
+  
+  function handleSubmit(e) {
     e.preventDefault();
-    const playerGuess = document.querySelector(".guess-input").value;
-    const isCorrect = correctAnswers.some(
-      (n) => n.toLowerCase() === playerGuess.toLowerCase().trim()
-    );
+    const validAnswers = gameState.validAnswers;
+    const hints = gameState.hints;
+    const playerGuess = userInput.value.toLowerCase().trim();
+    const isCorrect = validAnswers.some((a) => a.toLowerCase() === playerGuess);
+    if (!isCorrect) {
+      if (hints.length > 0) {
+        hintDivs[hintDivs.length - hints.length].innerText = hints.shift();
+        gameState.hp -= gameState.hintPenalty;
+        hpValue.innerText = gameState.hp;
+        userInput.value = '';
+      } else {
+        gameState.incorrect.push(gameState.country);
+        gameState.hp -= gameState.incorrectPenalty;
+        hpValue.innerText = gameState.hp;
+        gameState.resetCountry();
+        userInput.value = '';
+      }
+    } else {
+      gameState.correct.push(gameState.country);
+      scoreValue.innerText = gameState.correct.length;
+      gameState.hp += gameState.correctBonus;
+      hpValue.innerText = gameState.hp;
+      gameState.resetCountry();
+      userInput.value = '';
+    }
+  }
 
-    console.log(isCorrect ? "correct" : "incorrect!");
-  });
+  document
+    .querySelector(".guess-form")
+    .addEventListener("submit", handleSubmit);
 
-  // DEBUG PRINTS
-  console.log(correctAnswers);
+  const intervalId = setInterval(() => {
+    gameState.hp--;
+    hpValue.innerText = gameState.hp;
+    if (gameState.hp <= 0) {
+      clearInterval(intervalId);
+      alert(`
+        GAME OVER!
+        Final Score: ${gameState.correct.length}
+      `)
+    }
+  }, gameState.frameRate)
 }
 
 runGame();
