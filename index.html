@@ -9,37 +9,66 @@
   </head>
   <body>
     <div class="super-container">
-      <div class="game-container">
-        <header>
-          <h1>Guess The Flag</h1>
-        </header>
-        <main>
-          <div class="flag-div">
+      <main class="game-container">
+        <!-- <h1>Guess the flag</h1> -->
+        <div class="flag-section">
+          <!-- flag container should always measure 568 x 379 -->
+          <div class="flag-container">
             <img class="flag-img" src="" alt="" />
           </div>
-          <form action="" class="guess-form">
-            <label for="guess">Your guess</label>
-            <input class="guess-input" type="text" name="guess" id="guess" autofocus />
-            <button type="submit">Submit</button>
-          </form>
+        </div>
 
-          <div class="hint-buttons">
-            <div class="hint-button-container">
-              <button class="hint-button hint-button-1">Hint</button>
-            </div>
-            <div class="hint-button-container">
-              <button class="hint-button hint-button-2">Hint</button>
-            </div>
-            <div class="hint-button-container">
-              <button class="hint-button hint-button-3">Hint</button>
-            </div>
-            <div class="hint-button-container">
-              <button class="hint-button hint-button-4">Hint</button>
-            </div>
+        <div class="controls-container">
+          <div class="form-container">
+            <form action="" class="guess-form">
+              <div class="form-header-bar">
+                <div class="form-label-container">
+                  <label class="form-label" for="guess">Guess the flag</label>
+                </div>
+                <div class="player-stats-container">
+                  <p class="hp-container">
+                    HP: <span class="hp-value">60</span>
+                  </p>
+                  <p class="score-container">
+                    Score: <span class="score-value">0</span>
+                  </p>
+                </div>
+              </div>
+              <!-- FORM-HEADER-BAR ENDING -->
+              <div class="input-container">
+                <input
+                  autocomplete="off"
+                  placeholder="Type your answer..."
+                  class="guess-input"
+                  type="text"
+                  name="guess"
+                  id="guess"
+                  autofocus
+                />
+              </div>
+
+              <div class="form-buttons-container">
+                <div class="form-button submit-button" type="submit">
+                  <div class="button-symbol">⏎</div>
+                  <div class="button-text">Submit</div>
+                </div>
+                <div class="form-button skip-button" type="button">
+                  <div class="button-symbol">⇥</div>
+                  <div class="button-text">Skip</div>
+                </div>
+              </div>
+            </form>
           </div>
-        </main>
-        <footer></footer>
-      </div>
+
+          <div class="hints-container">
+            <p class="hint hint-1"></p>
+            <p class="hint hint-2"></p>
+            <p class="hint hint-3"></p>
+            <p class="hint hint-4"></p>
+          </div>
+        </div>
+      </main>
+      <footer></footer>
     </div>
 
     <script type="module" src="./script.js"></script>
