@@ -41,6 +41,7 @@ async function runGame() {
     userInput: document.querySelector('.guess-input'),
     scoreValue: document.querySelector('.score-value'),
     hpValue: document.querySelector('.hp-value'),
+    solutionText: document.querySelector('.solution-text'),
   };
 
   const data = await getCountries();
