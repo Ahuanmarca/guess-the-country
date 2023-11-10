@@ -30,6 +30,8 @@ const gameState = {
     document.querySelectorAll('.hint').forEach((d) => (d.innerText = ''));
     // eslint-disable-next-line no-console
     console.log(this.validAnswers);
+    // eslint-disable-next-line no-console
+    console.log(this.hints);
   },
 };
 

@@ -33,3 +33,6 @@ https://restcountries.com/v3.1/all
 [ ] Make 'submit' and 'skip' buttons give feedback
 [ ] Skipped answers go to skipped array
 [ ] 
+
+## Bugs?
+[ ] When getHints gets undefined value, it should always return 'Not applicable'... Looks like it is not working (test with ANTARCTICA)

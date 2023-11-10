@@ -1,4 +1,5 @@
-[
+/* eslint-disable quotes */
+export default [
   {
     "name": {
       "common": "Turks and Caicos Islands",
@@ -47226,4 +47227,4 @@
       "regex": "^(\\d{7})$"
     }
   }
-]
+];

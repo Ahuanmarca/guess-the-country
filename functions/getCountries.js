@@ -1,6 +1,25 @@
-// Default (no args): Returns array with one random country -> one element
+// Default: Returns all countries
 // If arg is a function, returns array.filter(arg) -> likely several elements
 // If arg is a number, retunrs array[arg] -> one element
+
+// This functions converts the returned objects to a simplified version
+/*
+  {
+    flag: 'https://flagcdn.com/tc.svg',
+    names: ['Turks and Caicos Islands', 'Turks and Caicos Islands', 'ETC'],
+    currencies: ['Dollar'],
+    capital: ['Cockburn Town'],
+    altSpellings: ['TC'],
+    continents: ['North America'],
+    region: 'Americas',
+    subregion: 'Caribbean',
+    languages: ['English'],
+    area: 948.0,
+    map: 'https://goo.gl/maps/R8VUDQfwZiFtvmyn8',
+    population: 38718,
+  }
+*/
+
 export async function getCountries(arg) {
   const response = await fetch('https://restcountries.com/v3.1/all');
   const data = await response.json();
