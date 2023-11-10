@@ -22,9 +22,8 @@ const gameState = {
     this.country = this.countries.pop();
     this.hints.length = 0;
     this.hints.push(...getHints(this.country));
-    this.validAnswers = Object.values(this.country.name).filter(
-      (n) => typeof n === 'string'
-    );
+    this.validAnswers.length = 0;
+    this.validAnswers.push(...this.country.name);
     const flagImg = document.querySelector('.flag-img');
     flagImg.src = this.country.flags.svg;
     flagImg.alt = this.country.flags.alt;

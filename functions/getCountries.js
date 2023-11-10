@@ -17,7 +17,7 @@ export async function getCountries(arg) {
     const country = {};
 
     // FLAG
-    country.flag = c.flags.svg;
+    country.flags = c.flags;
 
     // NAME: Array with name in all available languages
     const names = Object.values(flattenObj(c.name));
@@ -50,8 +50,8 @@ export async function getCountries(arg) {
     countries.push(country);
   });
 
-  return data;
-  // return countries;
+  // return data;
+  return countries;
 }
 
 function flattenObj(ob) {

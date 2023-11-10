@@ -12,23 +12,10 @@ export function getHints({ continents, capital, currencies, languages }) {
       ? `🙊 Capital${capital.length > 1 ? 's' : ''}: ${capital.join(', ')}`
       : undefined,
     currencies
-      ? `🙉 Currenc${
-          Object.keys(currencies).length > 1 ? 'ies' : 'y'
-        }: ${Object.values(currencies)
-          .map((c) =>
-            c.name
-              .split(' ')
-              .at(-1)
-              .split('')
-              .map((c, i) => (!i ? c.toUpperCase() : c))
-              .join('')
-          )
-          .join(', ')}`
+      ? `🙉 Currenc${currencies.length > 1 ? 'ies' : 'y'}: ${currencies.join(', ')}`
       : undefined,
     languages
-      ? `🙈 Language${
-          Object.keys(languages).length > 1 ? 's' : ''
-        }: ${Object.values(languages).join(', ')}`
+      ? `🙈 Language${languages.length > 1 ? 's' : ''}: ${languages.join(', ')}`
       : undefined,
   ];
 }

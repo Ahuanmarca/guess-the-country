@@ -32,11 +32,9 @@ export function handleSubmit(
       solutionText.innerText = gameState.validAnswers[0];
 
       hpContainer.classList.toggle('incorrect-input-background');
-      setTimeout(() => {
-        hpContainer.classList.toggle('incorrect-input-background');
-      }, 1000);
 
-      setTimeout(() => {
+      document.addEventListener('keypress', () => {
+        hpContainer.classList.toggle('incorrect-input-background');
         gameState.resetCountry();
         solutionText.classList.toggle('incorrect-answer');
         solutionText.innerText = '';
@@ -44,7 +42,7 @@ export function handleSubmit(
         userInput.value = '';
         userInput.disabled = false;
         userInput.focus();
-      }, 1000);
+      }, { once: true });
     }
   } else {
     // * CORRECT ANSWER
@@ -59,12 +57,10 @@ export function handleSubmit(
 
     hpContainer.classList.toggle('correct-input-background');
     scoreContainer.classList.toggle('correct-input-background');
-    setTimeout(() => {
+
+    document.addEventListener('keypress', () => {
       hpContainer.classList.toggle('correct-input-background');
       scoreContainer.classList.toggle('correct-input-background');
-    }, 1000);
-
-    setTimeout(() => {
       gameState.resetCountry();
       solutionText.innerText = '';
       solutionText.classList.toggle('correct-answer');
@@ -72,6 +68,6 @@ export function handleSubmit(
       userInput.value = '';
       userInput.disabled = false;
       userInput.focus();
-    }, 1000);
+    }, { once: true });
   }
 }

@@ -26,9 +26,10 @@ https://restcountries.com/v3.1/all
 - If all lists become empty, player wins
 
 ## TODO
-[x] When answer is submited, disable input for one seconds
-  [ ] Better: Disable input for 5 seconds or until player hits 'Enter' again
-[ ] 
-[ ] Change the color of the input field (correct = green, incorrect = red)... turn back to normal after 1 or 2 seconds
-[ ] Briefly turn HP to red when loosing HP, to green when earning HP
+[x] Accept answer in different languages
+[ ] Ignore special symbols in player answers
 [ ] Give priority in the queue to easier countries (larger? more population?)
+[ ] Make 'submit' and 'skip' work
+[ ] Make 'submit' and 'skip' buttons give feedback
+[ ] Skipped answers go to skipped array
+[ ] 
