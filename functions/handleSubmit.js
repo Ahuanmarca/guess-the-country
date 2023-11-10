@@ -8,13 +8,21 @@ export function handleSubmit(
   const hints = gameState.hints;
   const playerGuess = userInput.value.toLowerCase().trim();
   const isCorrect = validAnswers.some((a) => a.toLowerCase() === playerGuess);
+  const hpContainer = document.querySelector('.hp-container');
+  const scoreContainer = document.querySelector('.score-container');
   if (!isCorrect) {
-    if (hints.length > 0) { // * REVEAL HINT
+    if (hints.length > 0) {
+      // * REVEAL HINT
       hintDivs[hintDivs.length - hints.length].innerText = hints.shift();
       gameState.hp -= gameState.hintPenalty;
       hpValue.innerText = gameState.hp;
       userInput.value = '';
-    } else { // * INCORRECT ANSWER
+      hpContainer.classList.toggle('incorrect-input-background');
+      setTimeout(() => {
+        hpContainer.classList.toggle('incorrect-input-background');
+      }, 100);
+    } else {
+      // * INCORRECT ANSWER
       gameState.incorrect.push(gameState.country);
       gameState.hp -= gameState.incorrectPenalty;
       hpValue.innerText = gameState.hp;
@@ -22,6 +30,12 @@ export function handleSubmit(
       userInput.classList.toggle('incorrect-input-background');
       solutionText.classList.toggle('incorrect-answer');
       solutionText.innerText = gameState.validAnswers[0];
+
+      hpContainer.classList.toggle('incorrect-input-background');
+      setTimeout(() => {
+        hpContainer.classList.toggle('incorrect-input-background');
+      }, 1000);
+
       setTimeout(() => {
         gameState.resetCountry();
         solutionText.classList.toggle('incorrect-answer');
@@ -32,7 +46,8 @@ export function handleSubmit(
         userInput.focus();
       }, 1000);
     }
-  } else { // * CORRECT ANSWER
+  } else {
+    // * CORRECT ANSWER
     gameState.correct.push(gameState.country);
     scoreValue.innerText = gameState.correct.length;
     gameState.hp += gameState.correctBonus;
@@ -41,6 +56,14 @@ export function handleSubmit(
     userInput.disabled = true;
     solutionText.classList.toggle('correct-answer');
     solutionText.innerText = gameState.validAnswers[0];
+
+    hpContainer.classList.toggle('correct-input-background');
+    scoreContainer.classList.toggle('correct-input-background');
+    setTimeout(() => {
+      hpContainer.classList.toggle('correct-input-background');
+      scoreContainer.classList.toggle('correct-input-background');
+    }, 1000);
+
     setTimeout(() => {
       gameState.resetCountry();
       solutionText.innerText = '';
