@@ -8,8 +8,10 @@
 
 :root {
   --debug-border-green: 1px solid greenyellow;
-  --correct-color: greenyellow;
+  --correct-color: rgb(0, 212, 0);
   --incorrect-color: red;
+  --correct-background-color: rgb(197, 255, 197);
+  --incorrect-background-color: rgb(255, 194, 194);
 }
 
 .super-container {
@@ -48,10 +50,6 @@
   font-size: 3rem;
   font-weight: bold;
   text-align: center;
-}
-
-.correct {
-  color: var(--);
 }
 
 .flag-section {
@@ -182,4 +180,23 @@
 .hints-container {
   padding: 2rem;
   /* border: 1px solid pink; */
+}
+
+
+/* INTERACTIVE COLORS */
+
+.correct-answer {
+  color: var(--correct-color);
+}
+
+.incorrect-answer {
+  color: var(--incorrect-color);
+}
+
+.correct-input-background {
+  background-color: var(--correct-background-color);
+}
+
+.incorrect-input-background {
+  background-color: var(--incorrect-background-color)
 }

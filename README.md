@@ -26,7 +26,9 @@ https://restcountries.com/v3.1/all
 - If all lists become empty, player wins
 
 ## TODO
-[] Display correct answer (green if correct, red if incorrect)
-[] Change the color of the input field (correct = green, incorrect = red)... turn back to normal after 1 or 2 seconds
-[] Briefly turn HP to red when loosing HP, to green when earning HP
-[] Give priority in the queue to easier countries (larger? more population?)
+[x] When answer is submited, disable input for one seconds
+  [ ] Better: Disable input for 5 seconds or until player hits 'Enter' again
+[ ] 
+[ ] Change the color of the input field (correct = green, incorrect = red)... turn back to normal after 1 or 2 seconds
+[ ] Briefly turn HP to red when loosing HP, to green when earning HP
+[ ] Give priority in the queue to easier countries (larger? more population?)

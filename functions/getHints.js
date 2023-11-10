@@ -4,29 +4,31 @@
 export function getHints({ continents, capital, currencies, languages }) {
   return [
     continents
-      ? `🐵 Continent${continents.length > 1 ? "s" : ""}: ${continents.join(", ")}`
+      ? `🐵 Continent${continents.length > 1 ? 's' : ''}: ${continents.join(
+          ', '
+        )}`
       : undefined,
     capital
-      ? `🙊 Capital${capital.length > 1 ? "s" : ""}: ${capital.join(", ")}`
+      ? `🙊 Capital${capital.length > 1 ? 's' : ''}: ${capital.join(', ')}`
       : undefined,
     currencies
       ? `🙉 Currenc${
-          Object.keys(currencies).length > 1 ? "ies" : "y"
+          Object.keys(currencies).length > 1 ? 'ies' : 'y'
         }: ${Object.values(currencies)
           .map((c) =>
             c.name
-              .split(" ")
+              .split(' ')
               .at(-1)
-              .split("")
+              .split('')
               .map((c, i) => (!i ? c.toUpperCase() : c))
-              .join("")
+              .join('')
           )
-          .join(", ")}`
+          .join(', ')}`
       : undefined,
     languages
       ? `🙈 Language${
-          Object.keys(languages).length > 1 ? "s" : ""
-        }: ${Object.values(languages).join(", ")}`
+          Object.keys(languages).length > 1 ? 's' : ''
+        }: ${Object.values(languages).join(', ')}`
       : undefined,
   ];
 }
