@@ -15,7 +15,7 @@ const gameState = {
   correctBonus: 10,
   hintPenalty: 1,
   incorrectPenalty: 5,
-  frameRate: 10000,
+  frameRate: 1000 * 60 * 60,
 
   // METHODS
   resetCountry() {

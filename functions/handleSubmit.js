@@ -7,7 +7,11 @@ export function handleSubmit(
   const validAnswers = gameState.validAnswers;
   const hints = gameState.hints;
   const playerGuess = userInput.value.toLowerCase().trim();
-  const isCorrect = validAnswers.some((a) => a.toLowerCase() === playerGuess);
+  const answerIndex = validAnswers.findIndex(
+    (a) => a.toLowerCase() === playerGuess
+  );
+  const isCorrect = answerIndex !== -1;
+  // validAnswers.some((a) => a.toLowerCase() === playerGuess);
   const hpContainer = document.querySelector('.hp-container');
   const scoreContainer = document.querySelector('.score-container');
   if (!isCorrect) {
@@ -33,16 +37,20 @@ export function handleSubmit(
 
       hpContainer.classList.toggle('incorrect-input-background');
 
-      document.addEventListener('keypress', () => {
-        hpContainer.classList.toggle('incorrect-input-background');
-        gameState.resetCountry();
-        solutionText.classList.toggle('incorrect-answer');
-        solutionText.innerText = '';
-        userInput.classList.toggle('incorrect-input-background');
-        userInput.value = '';
-        userInput.disabled = false;
-        userInput.focus();
-      }, { once: true });
+      document.addEventListener(
+        'keypress',
+        () => {
+          hpContainer.classList.toggle('incorrect-input-background');
+          gameState.resetCountry();
+          solutionText.classList.toggle('incorrect-answer');
+          solutionText.innerText = '';
+          userInput.classList.toggle('incorrect-input-background');
+          userInput.value = '';
+          userInput.disabled = false;
+          userInput.focus();
+        },
+        { once: true }
+      );
     }
   } else {
     // * CORRECT ANSWER
@@ -53,21 +61,25 @@ export function handleSubmit(
     userInput.classList.toggle('correct-input-background');
     userInput.disabled = true;
     solutionText.classList.toggle('correct-answer');
-    solutionText.innerText = gameState.validAnswers[0];
+    solutionText.innerText = gameState.validAnswers[answerIndex];
 
     hpContainer.classList.toggle('correct-input-background');
     scoreContainer.classList.toggle('correct-input-background');
 
-    document.addEventListener('keypress', () => {
-      hpContainer.classList.toggle('correct-input-background');
-      scoreContainer.classList.toggle('correct-input-background');
-      gameState.resetCountry();
-      solutionText.innerText = '';
-      solutionText.classList.toggle('correct-answer');
-      userInput.classList.toggle('correct-input-background');
-      userInput.value = '';
-      userInput.disabled = false;
-      userInput.focus();
-    }, { once: true });
+    document.addEventListener(
+      'keypress',
+      () => {
+        hpContainer.classList.toggle('correct-input-background');
+        scoreContainer.classList.toggle('correct-input-background');
+        gameState.resetCountry();
+        solutionText.innerText = '';
+        solutionText.classList.toggle('correct-answer');
+        userInput.classList.toggle('correct-input-background');
+        userInput.value = '';
+        userInput.disabled = false;
+        userInput.focus();
+      },
+      { once: true }
+    );
   }
 }

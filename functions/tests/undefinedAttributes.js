@@ -9,6 +9,10 @@ console.log('undefined names: ', undefinedNames);
 const definedNames = response.filter(c => c.name !== undefined).length;
 console.log('defined names: ', definedNames);
 
+// const undefinedNames = response.reduce((acc, cur) => {
+//   const key = String(cur.name);
+// }, {});
+
 const undefinedCapitals = response.filter(c => c.capital === undefined).map(c => `${c.name.common}`).length;
 console.log('undefined capitals: ', undefinedCapitals);
 const definedCapitals = response.filter(c => c.capital !== undefined).map(c => `${c.name.common}`).length;
@@ -23,3 +27,18 @@ const undefinedLanguages = response.filter(c => c.languages === undefined).lengt
 console.log('undefined languages: ', undefinedLanguages);
 const definedLanguages = response.filter(c => c.languages !== undefined).length;
 console.log('defined languages: ', definedLanguages);
+
+const independentCount = response.map((c) => {
+    if (c.independent === true) {
+        return 'independent';
+    } else if (c.independent === false) {
+        return 'dependent';
+    } else {
+        return 'undefined';
+    }
+}).reduce((acc, cur) => {
+    if (acc[cur] === undefined) acc[cur] = 0;
+    acc[cur]++;
+    return acc;
+}, {});
+console.log(independentCount);
